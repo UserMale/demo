@@ -1,21 +1,40 @@
 pipeline {
-    agent any
+  agent any
+  stages {
+    stage('Build') {
+      parallel {
+        stage('Build1') {
+          steps {
+            echo 'Building..'
+          }
+        }
 
-    stages {
-        stage('Build') {
-            steps {
-                echo 'Building..'
-            }
+        stage('Build2') {
+          steps {
+            sh 'echo "Build2"'
+          }
         }
-        stage('Test') {
-            steps {
-                echo 'Testing..'
-            }
+
+        stage('Build3') {
+          steps {
+            echo 'Build3'
+          }
         }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying....'
-            }
-        }
+
+      }
     }
+
+    stage('Test') {
+      steps {
+        echo 'Testing..'
+      }
+    }
+
+    stage('Deploy') {
+      steps {
+        echo 'Deploying....'
+      }
+    }
+
+  }
 }
